@@ -1,11 +1,7 @@
 module.exports = {
-    node: "jit",
-    content: ['../components/**/*.{js,jsx,tsx, ts}', '../pages/**/*.{js,jsx,ts,tsx}', './public/**/*.html'], //add this line
-    darkMode: false, // or 'media' or 'class'
+    content: ["./src/pages/**/*.{js,jsx,ts,tsx}", "./src/component/**/*.{js,jsx,ts,tsx}"],
     theme: {
-        extend: {},
-    },
-    variants: {
+
         extend: {},
     },
     plugins: [],
