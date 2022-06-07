@@ -42,15 +42,21 @@ const Home = ({ posts }: Props) => {
             </div>
             <div>
                 {posts.map(post => (
-                    <Link key={post._id} href={`/posts/${post._id}`}>
-                        <img
-                            src={urlFor(post.mainImage.asset._ref)
-                                .width(500)
-                                .height(300)
-                                .url()}
-                        ></img>
-                        {/* <a>{post.title}</a> */}
-                    </Link>
+                    <div>
+                        <Link key={post._id} href={`/posts/${post._id}`}>
+                            <a>
+                                <img
+                                    src={urlFor(post.mainImage.asset._ref)
+                                        .width(300)
+                                        .height(300)
+                                        .url()}
+                                ></img>
+                                <h4>{post.title}</h4>
+                                <div>h</div>
+                            </a>
+                        </Link>
+                        <Link href={`/post/${post.author.name}`}></Link>
+                    </div>
                 ))}
             </div>
         </div>
