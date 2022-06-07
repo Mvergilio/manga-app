@@ -10,7 +10,7 @@ interface Props {
     posts: [Post]
 }
 const Home = ({ posts }: Props) => {
-    console.log(posts[0].mainImage.asset._ref)
+    console.log(posts)
     return (
         <div className="max-w-7xl mx-auto">
             <Head>
@@ -40,11 +40,25 @@ const Home = ({ posts }: Props) => {
                     />
                 </div>
             </div>
+            <h2>Last added</h2>
             <div>
                 {posts.map(post => (
-                    <div>
-                        <Link key={post._id} href={`/posts/${post._id}`}>
-                            <a>
+                    <div className="flex flex-col">
+                        <Link href={`/post/${post.author.name}`}>
+                            <a className="flex">
+                                <img
+                                    src={urlFor(post.author.image.asset._ref)
+                                        .width(50)
+                                        .height(50)
+                                        .url()}
+                                    alt=""
+                                />
+                                <span>{post.author.name}</span>
+                            </a>
+                        </Link>
+
+                        <Link key={post._id} href={`/posts/${post.title}`}>
+                            <a className="flex">
                                 <img
                                     src={urlFor(post.mainImage.asset._ref)
                                         .width(300)
@@ -55,7 +69,6 @@ const Home = ({ posts }: Props) => {
                                 <div>h</div>
                             </a>
                         </Link>
-                        <Link href={`/post/${post.author.name}`}></Link>
                     </div>
                 ))}
             </div>

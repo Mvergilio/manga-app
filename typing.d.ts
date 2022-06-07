@@ -4,7 +4,11 @@ export interface Post {
     title: string
     author: {
         name: string
-        image: string
+        image: {
+            asset: {
+                _ref: string
+            }
+        }
     }
     description: string
     mainImage: {
