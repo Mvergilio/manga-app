@@ -4,12 +4,13 @@ import Head from 'next/head'
 import Header from '../component/Header'
 import { sanityClient, urlFor } from '../../sanity'
 import { Post } from '../../typing'
+import Link from 'next/link'
 
 interface Props {
     posts: [Post]
 }
-const Home = (props: Props) => {
-    console.log(props.posts)
+const Home = ({ posts }: Props) => {
+    console.log(posts[0].mainImage.asset._ref)
     return (
         <div className="max-w-7xl mx-auto">
             <Head>
@@ -39,10 +40,23 @@ const Home = (props: Props) => {
                     />
                 </div>
             </div>
+            <div>
+                {posts.map(post => (
+                    <Link key={post._id} href={`/posts/${post._id}`}>
+                        <img
+                            src={urlFor(post.mainImage.asset._ref)
+                                .width(500)
+                                .height(300)
+                                .url()}
+                        ></img>
+                        {/* <a>{post.title}</a> */}
+                    </Link>
+                ))}
+            </div>
         </div>
     )
 }
-export const getServeSideProps = async () => {
+export const getServerSideProps = async () => {
     const query = `*[_type == "post"]{
     _id,
     title,

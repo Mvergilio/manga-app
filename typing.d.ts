@@ -8,8 +8,8 @@ export interface Post {
     }
     description: string
     mainImage: {
-        assets: {
-            url: string
+        asset: {
+            _ref: string
         }
     }
     slug: {

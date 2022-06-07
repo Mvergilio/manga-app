@@ -1,5 +1,5 @@
-import { createClient, createCurrentUserHook, createImageUlrBuilder } from "next-sanity";
-
+import { createClient, createCurrentUserHook } from "next-sanity";
+import createImageUlrBuilder from "@sanity/image-url";
 export const config = {
     dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || "production",
     projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
