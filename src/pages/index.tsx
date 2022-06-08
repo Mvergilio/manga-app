@@ -10,7 +10,7 @@ interface Props {
     posts: [Post]
 }
 const Home = ({ posts }: Props) => {
-    console.log(posts)
+    console.log(posts[0].body[0].children[0].text)
     return (
         <div className="max-w-7xl mx-auto">
             <Head>
@@ -41,34 +41,46 @@ const Home = ({ posts }: Props) => {
                 </div>
             </div>
             <h2>Last added</h2>
-            <div>
-                {posts.map(post => (
-                    <div className="flex flex-col">
-                        <Link href={`/post/${post.author.name}`}>
-                            <a className="flex">
-                                <img
-                                    src={urlFor(post.author.image.asset._ref)
-                                        .width(50)
-                                        .height(50)
-                                        .url()}
-                                    alt=""
-                                />
-                                <span>{post.author.name}</span>
-                            </a>
-                        </Link>
 
-                        <Link key={post._id} href={`/posts/${post.title}`}>
-                            <a className="flex">
-                                <img
-                                    src={urlFor(post.mainImage.asset._ref)
-                                        .width(300)
-                                        .height(300)
-                                        .url()}
-                                ></img>
-                                <h4>{post.title}</h4>
-                                <div>h</div>
-                            </a>
-                        </Link>
+            <div>
+                {posts.map((post, index) => (
+                    <div className="flex space-x-5 ">
+                        <span className="text-4xl text-gray-300 font-bold ">
+                            {`0${index + 1}`}
+                        </span>
+                        <div className="flex flex-col space-y-3 p-3">
+                            <Link href={`/post/${post.author.name}`}>
+                                <a className="flex space-x-2 items-center">
+                                    <img
+                                        className="rounded-full"
+                                        src={urlFor(
+                                            post.author.image.asset._ref
+                                        )
+                                            .width(30)
+                                            .height(30)
+                                            .url()}
+                                        alt=""
+                                    />
+                                    <span className="text-sm">
+                                        {post.author.name}
+                                    </span>
+                                </a>
+                            </Link>
+
+                            <Link key={post._id} href={`/posts/${post.title}`}>
+                                <a className="flex space-x-2 items-center">
+                                    <img
+                                        src={urlFor(post.mainImage.asset._ref)
+                                            .width(40)
+                                            .height(40)
+                                            .url()}
+                                    ></img>
+                                    <span className="text-lg font-bold">
+                                        {post.title}
+                                    </span>
+                                </a>
+                            </Link>
+                        </div>
                     </div>
                 ))}
             </div>
@@ -85,7 +97,8 @@ export const getServerSideProps = async () => {
   },
   description,
   mainImage,
-  slug
+  slug,
+  body
   }`
     const posts = await sanityClient.fetch(query)
     return { props: { posts } }
