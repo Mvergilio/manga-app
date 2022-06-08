@@ -42,7 +42,7 @@ const Home = ({ posts }: Props) => {
             </div>
             <h2>Last added</h2>
 
-            <div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 bg-red-100">
                 {posts.map((post, index) => (
                     <div className="flex space-x-5 ">
                         <span className="text-4xl text-gray-300 font-bold ">
@@ -67,7 +67,10 @@ const Home = ({ posts }: Props) => {
                                 </a>
                             </Link>
 
-                            <Link key={post._id} href={`/posts/${post.title}`}>
+                            <Link
+                                key={post._id}
+                                href={`/posts/${post.slug.current}`}
+                            >
                                 <a className="flex space-x-2 items-center">
                                     <img
                                         src={urlFor(post.mainImage.asset._ref)
