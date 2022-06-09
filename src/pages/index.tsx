@@ -49,7 +49,7 @@ const Home = ({ posts }: Props) => {
                             {`0${index + 1}`}
                         </span>
                         <div className="flex flex-col space-y-3 p-3">
-                            <Link href={`/post/${post.author.name}`}>
+                            <Link href={`/authors/${post.author.name}`}>
                                 <a className="flex space-x-2 items-center">
                                     <img
                                         className="rounded-full"
