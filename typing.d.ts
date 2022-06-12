@@ -10,7 +10,7 @@ export interface Post {
             }
         }
     }
-    description: string
+    description?: string
     mainImage: {
         asset: {
             _ref: string
@@ -19,5 +19,5 @@ export interface Post {
     slug: {
         current: string
     }
-    body: [object]
+    body?: [object]
 }

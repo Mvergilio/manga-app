@@ -10,7 +10,6 @@ interface Props {
     posts: [Post]
 }
 const Home = ({ posts }: Props) => {
-    console.log(posts[0].body[0].children[0].text)
     return (
         <div className="max-w-7xl mx-auto">
             <Head>
@@ -91,17 +90,15 @@ const Home = ({ posts }: Props) => {
     )
 }
 export const getServerSideProps = async () => {
-    const query = `*[_type == "post"]{
+    const query = `*[_type == "post"] | order(_createdAt asc){
     _id,
     title,
     author->{
     name,
     image
   },
-  description,
   mainImage,
   slug,
-  body
   }`
     const posts = await sanityClient.fetch(query)
     return { props: { posts } }
