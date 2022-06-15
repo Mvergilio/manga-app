@@ -1,11 +1,13 @@
 import { sanityClient, urlFor } from '../../../sanity'
 import { Post } from '../../../typing'
-
-const Post = (props: Post) => {
-    return <h1>My name is BOM</h1>
+interface Data {
+    data: Post
+}
+const Post = ({ data }: Data) => {
+    return <h1>{data.title}</h1>
 }
 
-const sanityQuery = `*[_type == "post" && slug.current == $slug][_id]{
+const postQuery = `*[_type == "post" && slug.current == $slug][0]{
     _id,
     title,
     author->{
@@ -21,13 +23,14 @@ const sanityQuery = `*[_type == "post" && slug.current == $slug][_id]{
 export async function getStaticPaths() {
     const paths = await sanityClient.fetch(
         `*[_type == "post" && defined(slug.current)]{
-            params:{slug}
-        }`
+            "params":{
+               "slug": slug.current
+             }
+           }`
     )
-
     return {
         paths,
-        fallback: true
+        fallback: true // false or 'blocking'
     }
 }
 interface Params {
@@ -35,16 +38,16 @@ interface Params {
         slug: string
     }
 }
-// export async function GetStaticProps({ params }: Params) {
-//     const { slug } = params
+export async function getStaticProps({ params }: Params) {
+    const { slug } = params
 
-//     const post = await sanityClient.fetch(sanityQuery, { slug })
-
-//     return {
-//         props: {
-//             data: { post }
-//         }
-//     }
-// }
+    const post = await sanityClient.fetch(postQuery, { slug })
+    console.log(slug)
+    return {
+        props: {
+            data: { post }
+        }
+    }
+}
 
 export default Post
